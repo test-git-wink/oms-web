@@ -14,7 +14,7 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div className="container row">
+      <div className=" row">
         <div className="col-lg-12">
           <h1 class="page-header">Main</h1>
         </div>

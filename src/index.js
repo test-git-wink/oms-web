@@ -10,9 +10,7 @@ const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <Main />
-    </React.StrictMode>
+    <Main />
   </Provider>,
   document.getElementById("root")
 );

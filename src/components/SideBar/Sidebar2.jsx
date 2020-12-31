@@ -88,10 +88,10 @@ export default function CustomizedAccordions() {
             <AccordionDetails>
               <ul className="nav nav-second-level">
                 <li>
-                  <a href="flot.html">Add Order</a>
+                  <a href="/oms/orders">View Order</a>
                 </li>
                 <li>
-                  <a href="morris.html">Cancel Order</a>
+                  <a href="morris.html">Add Order</a>
                 </li>
               </ul>
             </AccordionDetails>
