@@ -1,51 +1,62 @@
 import produce from "immer";
 import { call, put, takeLatest } from "redux-saga/effects";
-import { getOrderData } from "../../../api/order/orderApiCalls";
+import { getOrderData, patchOrderData } from "../../../api/order/orderApiCalls";
 import { LoadingStatus } from "../../../rootReducer/actions";
 
-export const ViewOrdersEvent = {
-  GET_VIEW_ORDER_DATA: "GET_VIEW_ORDER_DATA",
-  GET_VIEW_ORDER_DATA_RESULT: "GET_VIEW_ORDER_DATA_RESULT",
+export const OrderEvents = {
+  GET_ORDER_DATA: "GET_ORDER_DATA",
+  GET_ORDER_DATA_RESULT: "GET_ORDER_DATA_RESULT",
+  PATCH_ORDER_DATA: "PATCH_ORDER_DATA",
 };
 
 export const GetViewOrdersAction = (payloadData) => ({
-  type: ViewOrdersEvent.GET_VIEW_ORDER_DATA,
+  type: OrderEvents.GET_ORDER_DATA,
   payload: payloadData,
 });
 
 export const GetViewOrdersResultAction = (data) => ({
-  type: ViewOrdersEvent.GET_VIEW_ORDER_DATA_RESULT,
+  type: OrderEvents.GET_ORDER_DATA_RESULT,
   orderData: data,
 });
 
-export const ViewOrdersData = {
+export const PatchCancelOrdersAction = (payloadData) => ({
+  type: OrderEvents.PATCH_ORDER_DATA,
+  payload: payloadData,
+});
+
+export const OrdersData = {
   loadingStatus: LoadingStatus.LOADING_STARTED,
   orderData: [],
 };
 
-export function viewOrderReducer(state = ViewOrdersData, action) {
+export function orderReducer(state = OrdersData, action) {
   return produce(state, (draft) => {
     // eslint-disable-next-line default-case
     switch (action.type) {
-      case ViewOrdersEvent.GET_VIEW_ORDER_DATA_RESULT: {
+      case OrderEvents.GET_ORDER_DATA_RESULT: {
         draft.loadingStatus = LoadingStatus.LOADING_SUCCESS;
         draft.orderData = action.orderData;
         break;
       }
 
-      case ViewOrdersEvent.GET_VIEW_ORDER_DATA: {
+      case OrderEvents.GET_ORDER_DATA: {
         draft.loadingStatus = LoadingStatus.LOADING_STARTED;
-        draft.payload = action.payload;
+        draft.viewOrderpayload = action.payload;
+        break;
+      }
+      case OrderEvents.PATCH_ORDER_DATA: {
+        draft.loadingStatus = LoadingStatus.LOADING_STARTED;
+        draft.cancelOrderpayload = action.payload;
         break;
       }
     }
   });
 }
 
-export const ViewOrdersSagas = [getViewOrdersDataSaga];
+export const orderSagas = [getViewOrdersDataSaga, patchOrdersDataSaga];
 
 function* getViewOrdersDataSaga() {
-  yield takeLatest(ViewOrdersEvent.GET_VIEW_ORDER_DATA, callGetViewOrdersData);
+  yield takeLatest(OrderEvents.GET_ORDER_DATA, callGetViewOrdersData);
 }
 
 function* callGetViewOrdersData(action) {
@@ -54,6 +65,21 @@ function* callGetViewOrdersData(action) {
     const results = yield call(getOrderData, action.payload);
     console.log("respone =>", results.data);
     yield put(GetViewOrdersResultAction(results.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* patchOrdersDataSaga() {
+  yield takeLatest(OrderEvents.PATCH_ORDER_DATA, callPatchOrdersData);
+}
+
+function* callPatchOrdersData(action) {
+  try {
+    console.log("callPatchOrdersData =>", action.payload);
+    const results = yield call(patchOrderData, action.payload);
+    console.log("respone =>", results.data);
+    // yield put(GetViewOrdersResultAction(results.data));
   } catch (error) {
     console.log(error);
   }

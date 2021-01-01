@@ -1,6 +1,20 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class Sidebar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      active: "Main",
+    };
+    this.handleLinkClick = this.handleLinkClick.bind(this);
+  }
+  handleLinkClick(evt, val) {
+    this.setState({
+      active: val,
+    });
+    evt.preventDefault();
+  }
   render() {
     return (
       <div className="navbar-default sidebar" role="navigation">
@@ -22,21 +36,34 @@ export default class Sidebar extends Component {
               {/* /input-group */}
             </li>
             <li>
-              <a href="index.html" className="active">
-                <i className="fa fa-dashboard fa-fw" /> Dashboard
+              <a
+                href="/"
+                className={`${this.state.active === "Main" ? "active" : ""}`}
+                onClick={(e) => this.handleLinkClick(e, "Main")}
+              >
+                <i className="fa fa-dashboard fa-fw" /> Main
               </a>
             </li>
-            <li>
-              <a href="#">
+            <li className={`${this.state.active === "Orders" ? "active" : ""}`}>
+              <a
+                href="/oms/orders"
+                className={`${this.state.active === "Orders" ? "active" : ""}`}
+                onClick={(e) => this.handleLinkClick(e, "Orders")}
+              >
                 <i className="fa fa-bar-chart-o fa-fw" /> Orders
                 <span className="fa arrow" />
               </a>
-              <ul className="nav nav-second-level">
+              <ul
+                // className="nav nav-second-level collapse"
+                className={`nav nav-second-level ${
+                  this.state.active === "Orders" ? "collapse-in" : "collapse"
+                }`}
+              >
                 <li>
-                  <a href="flot.html">Add Order</a>
+                  <Link to="/oms/orders/view">View Order</Link>
                 </li>
                 <li>
-                  <a href="morris.html">Cancel Order</a>
+                  <Link to="/oms/orders/add">Add Order</Link>
                 </li>
               </ul>
               {/* /.nav-second-level */}

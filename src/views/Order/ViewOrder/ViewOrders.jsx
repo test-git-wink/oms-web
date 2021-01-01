@@ -21,7 +21,7 @@ const styles = (theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    backgroundColor: "#a0d2eb",
+    // backgroundColor: "#a0d2eb",
   },
 });
 
@@ -63,9 +63,9 @@ class ViewOrders extends Component {
           </div>
         </div>
         <Container maxWidth="xl">
-          <Grid container spacing={5} className={classes.root}>
-            <Grid item lg={2}>
-              <Paper className={classes.paper}>
+          <Paper className={classes.paper}>
+            <Grid container spacing={5} className={classes.root}>
+              <Grid item lg={2}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDatePicker
                     disableToolbar
@@ -81,10 +81,8 @@ class ViewOrders extends Component {
                     }}
                   />
                 </MuiPickersUtilsProvider>
-              </Paper>
-            </Grid>
-            <Grid item lg={2}>
-              <Paper className={classes.paper}>
+              </Grid>
+              <Grid item lg={2}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDatePicker
                     disableToolbar
@@ -100,27 +98,27 @@ class ViewOrders extends Component {
                     }}
                   />
                 </MuiPickersUtilsProvider>
-              </Paper>
+              </Grid>
+              <Grid item lg={2}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  onClick={this.handleSearchOrders}
+                >
+                  Search
+                </Button>
+              </Grid>
+              <Grid item lg={12}>
+                <OrderDataTable
+                  fromDate={this.state.fromDate}
+                  toDate={this.state.toDate}
+                  page={this.state.page}
+                  pageLimit={this.state.pageLimit}
+                />
+              </Grid>
             </Grid>
-            <Grid item lg={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                onClick={this.handleSearchOrders}
-              >
-                Search
-              </Button>
-            </Grid>
-            <Grid item lg={12}>
-              <OrderDataTable
-                fromDate={this.state.fromDate}
-                toDate={this.state.toDate}
-                page={this.state.page}
-                pageLimit={this.state.pageLimit}
-              />
-            </Grid>
-          </Grid>
+          </Paper>
         </Container>
       </div>
     );
@@ -134,7 +132,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getOrders: (params) =>
-      dispatch({ type: "GET_VIEW_ORDER_DATA", payload: params }),
+      dispatch({ type: "GET_ORDER_DATA", payload: params }),
   };
 };
 

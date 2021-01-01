@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from "../../components/Header/Header";
-import Sidebar2 from "../../components/SideBar/Sidebar2";
-import ViewOrders from "../Order/ViewOrder/ViewOrders";
 import "../../resources/css/bootstrap-grid.min.css";
 import "../../resources/css/bootstrap-reboot.min.css";
 import "../../resources/css/bootstrap.min.css";
@@ -11,6 +9,8 @@ import "../../resources/css/font-awesome.min.css";
 import "../../resources/css/metisMenu.min.css";
 import "../../resources/css/startmin.css";
 import Home from "../Home/home";
+import ViewOrders from "../Order/ViewOrder/ViewOrders";
+import AddOrder from "../Order/AddOrder/AddOrder";
 
 class Main extends Component {
   constructor(props) {
@@ -22,19 +22,20 @@ class Main extends Component {
   render() {
     return (
       <div id="wrapper">
-        <Header />
-        <Sidebar2 />
-        <main id="page-wrapper" style={{ minHeight: "523px" }}>
-          <div className=" container-fluid">
-            <BrowserRouter>
+        <BrowserRouter>
+          <Header />
+
+          <main id="page-wrapper" style={{ minHeight: "1080px" }}>
+            <div className=" container-fluid">
               <Switch>
                 <Route exact path="/" component={Home} />
-                <Route exact path="/oms/orders" component={ViewOrders} />
+                <Route exact path="/oms/orders/view" component={ViewOrders} />
+                <Route exact path="/oms/orders/add" component={AddOrder} />
                 <Route />
               </Switch>
-            </BrowserRouter>
-          </div>
-        </main>
+            </div>
+          </main>
+        </BrowserRouter>
       </div>
     );
   }
