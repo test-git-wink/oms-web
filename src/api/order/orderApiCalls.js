@@ -40,3 +40,25 @@ export async function patchOrderData(data) {
     console.log(error);
   }
 }
+
+export async function postOrderData(data) {
+  try {
+    console.log("postOrderData api param =>", data);
+    const resp = await axios.patch(
+      `http://localhost:8082/v1/customer-orders/order`,
+      {
+        userId: data.userId,
+        orderItemList: data.orderItemList,
+        orderStatus: data.orderStatus,
+        shipmentDate: data.shipmentDate,
+        userAddresID: data.userAddresID,
+      }
+    );
+
+    console.log("postOrderData api response...", resp);
+
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+}

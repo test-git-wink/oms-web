@@ -33,7 +33,6 @@ export default class Sidebar extends Component {
                   </button>
                 </span>
               </div>
-              {/* /input-group */}
             </li>
             <li>
               <a

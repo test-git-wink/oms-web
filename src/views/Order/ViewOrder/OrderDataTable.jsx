@@ -89,7 +89,7 @@ class OrderDataTable extends React.Component {
 
   handlePageChange(params) {
     console.log(params);
-    this.setState({ page: params.page });
+    this.setState({ page: params.page, loading: true });
 
     this.props.getOrders({
       fromDate: this.props.fromDate,
@@ -98,7 +98,7 @@ class OrderDataTable extends React.Component {
       pageLimit: this.props.pageLimit,
     });
 
-    this.setState({ rows: this.props.data });
+    this.setState({ rows: this.props.data, loading: false });
   }
 
   handleCancelOrder(params) {
@@ -123,10 +123,10 @@ class OrderDataTable extends React.Component {
           columns={this.columns}
           pageSize={this.props.pageLimit}
           checkboxSelection={false}
-          rowCount={100}
+          rowCount={this.props.dataCount}
           paginationMode="server"
           onPageChange={this.handlePageChange}
-          loading={this.loading}
+          loading={this.state.loading}
         />
       </div>
     );
@@ -136,6 +136,7 @@ class OrderDataTable extends React.Component {
 const mapStateToProps = (state) => ({
   loadingStatus: state.viewOrderData.loadingStatus,
   data: state.viewOrderData.orderData.orders,
+  dataCount: state.viewOrderData.orderData.orderCount,
 });
 
 const mapDispatchToProps = (dispatch) => {

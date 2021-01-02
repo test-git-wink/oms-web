@@ -79,7 +79,6 @@ function* callPatchOrdersData(action) {
     console.log("callPatchOrdersData =>", action.payload);
     const results = yield call(patchOrderData, action.payload);
     console.log("respone =>", results.data);
-    // yield put(GetViewOrdersResultAction(results.data));
   } catch (error) {
     console.log(error);
   }
