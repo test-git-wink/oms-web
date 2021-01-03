@@ -4,6 +4,18 @@ import { isValidOrderCancellation } from "../../../validation/orderValidation";
 import Button from "@material-ui/core/Button";
 import { DataGrid } from "@material-ui/data-grid";
 import { OrderRequestStatus } from "../../../common/orderStatus";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = (theme) => ({
+  root: {
+    flexGrow: 1,
+    fontSize: "small",
+    textAlign: "center",
+    "&.MuiDataGrid-colCellTitle": {
+      justifyContent: "center",
+    },
+  },
+});
 
 class OrderDataTable extends React.Component {
   constructor(props) {
@@ -19,8 +31,8 @@ class OrderDataTable extends React.Component {
     this.isValidCancellation = this.isValidCancellation.bind(this);
 
     this.columns = [
-      { field: "id", headerName: "Order Id", width: 70 },
-      { field: "customerId", headerName: "Customer Id", width: 100 },
+      { field: "id", headerName: "Order Id", width: 90 },
+      { field: "customerId", headerName: "Customer Id", width: 110 },
       { field: "orderTotalPrice", headerName: "Order Total Price", width: 150 },
       {
         field: "orderTimestamp",
@@ -117,15 +129,9 @@ class OrderDataTable extends React.Component {
           pageLimit: this.props.pageLimit,
         });
       }.bind(this),
-      2000
+      1500
     );
 
-    // this.props.getOrders({
-    //   fromDate: this.props.fromDate,
-    //   toDate: this.props.toDate,
-    //   page: this.state.page,
-    //   pageLimit: this.props.pageLimit,
-    // });
     this.setState({ rows: this.props.data });
   }
 
@@ -138,8 +144,9 @@ class OrderDataTable extends React.Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div style={{ height: 400, width: "100%" }}>
+      <div style={{ height: 500, width: "100%" }}>
         <DataGrid
           rows={this.state.rows ? this.state.rows : []}
           columns={this.columns}
@@ -149,6 +156,7 @@ class OrderDataTable extends React.Component {
           paginationMode="server"
           onPageChange={this.handlePageChange}
           loading={this.state.loading}
+          className={classes.root}
         />
       </div>
     );
@@ -170,4 +178,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderDataTable);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(OrderDataTable));

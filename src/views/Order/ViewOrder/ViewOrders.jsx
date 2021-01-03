@@ -55,6 +55,7 @@ class ViewOrders extends Component {
   }
   render() {
     const { classes } = this.props;
+
     return (
       <div className="container-fluid">
         <div className=" row">
@@ -99,7 +100,7 @@ class ViewOrders extends Component {
                   />
                 </MuiPickersUtilsProvider>
               </Grid>
-              <Grid item lg={2}>
+              <Grid item lg={2} className="py-5">
                 <Button
                   variant="contained"
                   color="primary"

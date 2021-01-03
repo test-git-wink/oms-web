@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import configureStore from "./rootReducer/store";
 import Main from "./views/Main/Main";

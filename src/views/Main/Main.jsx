@@ -8,6 +8,7 @@ import "../../resources/css/bootstrap.min.css";
 import "../../resources/css/font-awesome.min.css";
 import "../../resources/css/metisMenu.min.css";
 import "../../resources/css/startmin.css";
+import "../../resources/css/style.css";
 import Home from "../Home/home";
 import ViewOrders from "../Order/ViewOrder/ViewOrders";
 import AddOrder from "../Order/AddOrder/AddOrder";
