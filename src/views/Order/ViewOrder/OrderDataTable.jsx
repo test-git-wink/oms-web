@@ -107,19 +107,41 @@ class OrderDataTable extends React.Component {
       orderId: params.getValue("id"),
       orderStatus: OrderRequestStatus.CANCEL,
     });
-    this.props.getOrders({
-      fromDate: this.props.fromDate,
-      toDate: this.props.toDate,
-      page: this.state.page,
-      pageLimit: this.props.pageLimit,
-    });
+
+    setTimeout(
+      function name() {
+        this.props.getOrders({
+          fromDate: this.props.fromDate,
+          toDate: this.props.toDate,
+          page: this.state.page,
+          pageLimit: this.props.pageLimit,
+        });
+      }.bind(this),
+      2000
+    );
+
+    // this.props.getOrders({
+    //   fromDate: this.props.fromDate,
+    //   toDate: this.props.toDate,
+    //   page: this.state.page,
+    //   pageLimit: this.props.pageLimit,
+    // });
+    this.setState({ rows: this.props.data });
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    if (state.rows !== props.data) {
+      return {
+        rows: props.data,
+      };
+    } else return null;
   }
 
   render() {
     return (
       <div style={{ height: 400, width: "100%" }}>
         <DataGrid
-          rows={this.props.data ? this.props.data : []}
+          rows={this.state.rows ? this.state.rows : []}
           columns={this.columns}
           pageSize={this.props.pageLimit}
           checkboxSelection={false}
