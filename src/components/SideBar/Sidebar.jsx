@@ -6,12 +6,14 @@ export default class Sidebar extends Component {
     super();
     this.state = {
       active: "Main",
+      clicked: false,
     };
     this.handleLinkClick = this.handleLinkClick.bind(this);
   }
   handleLinkClick(evt, val) {
     this.setState({
       active: val,
+      clicked: !this.state.clicked,
     });
     evt.preventDefault();
   }
@@ -43,7 +45,13 @@ export default class Sidebar extends Component {
                 <i className="fa fa-dashboard fa-fw" /> Main
               </a>
             </li>
-            <li className={`${this.state.active === "Orders" ? "active" : ""}`}>
+            <li
+              className={`${
+                this.state.active === "Orders" && this.state.clicked
+                  ? "active"
+                  : ""
+              }`}
+            >
               <a
                 href="/oms/orders"
                 className={`${this.state.active === "Orders" ? "active" : ""}`}
@@ -55,7 +63,9 @@ export default class Sidebar extends Component {
               <ul
                 // className="nav nav-second-level collapse"
                 className={`nav nav-second-level ${
-                  this.state.active === "Orders" ? "collapse-in" : "collapse"
+                  this.state.active === "Orders" && this.state.clicked
+                    ? "collapse-in"
+                    : "collapse"
                 }`}
               >
                 <li>
