@@ -11,3 +11,7 @@
 .MuiDataGrid-colCellTitleContainer {
   justify-content: center;
 }
+
+.MuiDataGrid-cell {
+  text-align: center !important;
+}

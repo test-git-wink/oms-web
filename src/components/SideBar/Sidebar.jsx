@@ -69,7 +69,7 @@ export default class Sidebar extends Component {
                 }`}
               >
                 <li>
-                  <Link to="/oms/orders/view">View Order</Link>
+                  <Link to="/oms/orders/view">View Orders</Link>
                 </li>
                 <li>
                   <Link to="/oms/orders/add">Add Order</Link>

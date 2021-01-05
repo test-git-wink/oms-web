@@ -40,7 +40,7 @@ class ViewOrders extends Component {
   }
 
   handleFromDateChange(date, value) {
-    this.setState((state) => ({ fromDate: value }));
+    this.setState({ fromDate: value });
   }
   handleToDateChange(date, value) {
     this.setState((state) => ({ toDate: value }));

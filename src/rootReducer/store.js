@@ -3,7 +3,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import { all, fork } from "redux-saga/effects";
 import { homePageReducer, homePageSagas } from "../views/Home/index";
-import { orderReducer, orderSagas } from "../views/Order/ViewOrder/index";
+import { orderReducer } from "../views/Order/ViewOrder/data/orderReducer";
+import { orderSagas } from "../views/Order/ViewOrder/data/orderSagas";
 
 const rootReducer = () =>
   combineReducers({

@@ -14,12 +14,6 @@ import ViewOrders from "../Order/ViewOrder/ViewOrders";
 import AddOrder from "../Order/AddOrder/AddOrder";
 
 class Main extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
   render() {
     return (
       <div id="wrapper">
@@ -32,7 +26,6 @@ class Main extends Component {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/oms/orders/view" component={ViewOrders} />
                 <Route exact path="/oms/orders/add" component={AddOrder} />
-                <Route />
               </Switch>
             </div>
           </main>
@@ -42,4 +35,4 @@ class Main extends Component {
   }
 }
 
-export default connect(null, null)(Main);
+export default Main;

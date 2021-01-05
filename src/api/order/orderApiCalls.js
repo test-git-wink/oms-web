@@ -4,7 +4,7 @@ export async function getOrderData(data) {
   try {
     console.log("getOrderData api param =>", data);
     const resp = await axios.get(
-      `http://localhost:8082/v1/customer-orders/order`,
+      `http://localhost:8082/v1/customer-orders/orders`,
       {
         params: {
           fromDate: data.fromDate,
@@ -27,7 +27,7 @@ export async function patchOrderData(data) {
   try {
     console.log("patchOrderData api param =>", data);
     const resp = await axios.patch(
-      `http://localhost:8082/v1/customer-orders/order/${data.orderId}`,
+      `http://localhost:8082/v1/customer-orders/orders/${data.orderId}`,
       {
         orderStatus: data.orderStatus,
       }
@@ -45,7 +45,7 @@ export async function postOrderData(data) {
   try {
     console.log("postOrderData api param =>", data);
     const resp = await axios.patch(
-      `http://localhost:8082/v1/customer-orders/order`,
+      `http://localhost:8082/v1/customer-orders/orders`,
       {
         userId: data.userId,
         orderItemList: data.orderItemList,

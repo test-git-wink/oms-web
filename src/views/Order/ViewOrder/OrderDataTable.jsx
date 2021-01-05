@@ -5,6 +5,8 @@ import Button from "@material-ui/core/Button";
 import { DataGrid } from "@material-ui/data-grid";
 import { OrderRequestStatus } from "../../../common/orderStatus";
 import { withStyles } from "@material-ui/core/styles";
+import { LoadingStatus } from "../../../rootReducer/actions";
+import NoDataDisplay from "../../../components/Common/NoDataDisplay";
 
 const styles = (theme) => ({
   root: {
@@ -21,8 +23,7 @@ class OrderDataTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: this.props.data,
-      page: 0,
+      page: 1,
       loading: false,
     };
 
@@ -80,10 +81,10 @@ class OrderDataTable extends React.Component {
                   variant="contained"
                   color="primary"
                   size="small"
-                  style={{ marginLeft: 16 }}
+                  style={{ marginLeft: 16, background: "red" }}
                   onClick={() => this.handleCancelOrder(params)}
                 >
-                  Cancel Order
+                  <strong>Cancel Order</strong>
                 </Button>
               </strong>
             );
@@ -100,66 +101,65 @@ class OrderDataTable extends React.Component {
   }
 
   handlePageChange(params) {
-    console.log(params);
-    this.setState({ page: params.page, loading: true });
+    console.log("handlePageChange ", params);
+    if (params.paginationMode === "server") {
+      this.setState({ page: params.page });
+    }
+  }
 
-    this.props.getOrders({
-      fromDate: this.props.fromDate,
-      toDate: this.props.toDate,
-      page: params.page,
-      pageLimit: this.props.pageLimit,
-    });
-
-    this.setState({ rows: this.props.data, loading: false });
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log("prevState", prevState);
+    if (this.state.page > prevState.page) {
+      this.setState({ loading: true });
+      this.props.getOrders({
+        fromDate: this.props.fromDate,
+        toDate: this.props.toDate,
+        page: this.state.page,
+        pageLimit: this.props.pageLimit,
+      });
+      this.setState({ loading: false });
+    }
   }
 
   handleCancelOrder(params) {
-    console.log(params);
+    console.log("handleCancelOrder", params);
+
     this.props.cancelOrder({
-      orderId: params.getValue("id"),
-      orderStatus: OrderRequestStatus.CANCEL,
+      cancelData: {
+        orderId: params.getValue("id"),
+        orderStatus: OrderRequestStatus.CANCEL,
+      },
+      getOrderData: {
+        fromDate: this.props.fromDate,
+        toDate: this.props.toDate,
+        page: this.state.page,
+        pageLimit: this.props.pageLimit,
+      },
     });
-
-    setTimeout(
-      function name() {
-        this.props.getOrders({
-          fromDate: this.props.fromDate,
-          toDate: this.props.toDate,
-          page: this.state.page,
-          pageLimit: this.props.pageLimit,
-        });
-      }.bind(this),
-      1500
-    );
-
-    this.setState({ rows: this.props.data });
-  }
-
-  static getDerivedStateFromProps(props, state) {
-    if (state.rows !== props.data) {
-      return {
-        rows: props.data,
-      };
-    } else return null;
   }
 
   render() {
     const { classes } = this.props;
-    return (
-      <div style={{ height: 500, width: "100%" }}>
-        <DataGrid
-          rows={this.state.rows ? this.state.rows : []}
-          columns={this.columns}
-          pageSize={this.props.pageLimit}
-          checkboxSelection={false}
-          rowCount={this.props.dataCount}
-          paginationMode="server"
-          onPageChange={this.handlePageChange}
-          loading={this.state.loading}
-          className={classes.root}
-        />
-      </div>
-    );
+
+    if (this.props.loadingStatus === LoadingStatus.LOADING_SUCCESS) {
+      return (
+        <div style={{ height: 500, width: "100%" }}>
+          <DataGrid
+            rows={this.props.data ? this.props.data : []}
+            columns={this.columns}
+            pageSize={this.props.pageLimit}
+            checkboxSelection={false}
+            rowCount={this.props.dataCount ? this.props.dataCount : 0}
+            paginationMode="server"
+            onPageChange={this.handlePageChange}
+            loading={false}
+            className={classes.root}
+          />
+        </div>
+      );
+    } else {
+      return <NoDataDisplay />;
+    }
   }
 }
 
