@@ -14,12 +14,11 @@ export function orderReducer(state = OrdersData, action) {
 
       case OrderEvents.GET_ORDER_DATA: {
         draft.loadingStatus = LoadingStatus.LOADING_STARTED;
-        // draft.viewOrderpayload = action.payload;
+
         break;
       }
       case OrderEvents.PATCH_ORDER_DATA: {
         draft.loadingStatus = LoadingStatus.LOADING_STARTED;
-        // draft.cancelOrderpayload = action.payload;
         break;
       }
     }

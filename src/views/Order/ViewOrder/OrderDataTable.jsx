@@ -103,21 +103,17 @@ class OrderDataTable extends React.Component {
   handlePageChange(params) {
     console.log("handlePageChange ", params);
     if (params.paginationMode === "server") {
-      this.setState({ page: params.page });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("prevState", prevState);
-    if (this.state.page > prevState.page) {
-      this.setState({ loading: true });
-      this.props.getOrders({
-        fromDate: this.props.fromDate,
-        toDate: this.props.toDate,
-        page: this.state.page,
-        pageLimit: this.props.pageLimit,
+      this.setState((state) => {
+        if (state.page !== params.page) {
+          this.props.getOrders({
+            fromDate: this.props.fromDate,
+            toDate: this.props.toDate,
+            page: params.page,
+            pageLimit: this.props.pageLimit,
+          });
+        }
+        return { page: params.page };
       });
-      this.setState({ loading: false });
     }
   }
 
@@ -154,6 +150,7 @@ class OrderDataTable extends React.Component {
             onPageChange={this.handlePageChange}
             loading={false}
             className={classes.root}
+            page={this.state.page}
           />
         </div>
       );
