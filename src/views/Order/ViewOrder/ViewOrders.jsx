@@ -12,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import OrderDataTable from "./OrderDataTable";
 import { connect } from "react-redux";
 import format from "date-fns/format";
+import { isVallidDateRange } from "../../../validation/orderValidation";
 
 const styles = (theme) => ({
   root: {
@@ -46,12 +47,14 @@ class ViewOrders extends Component {
     this.setState((state) => ({ toDate: value }));
   }
   handleSearchOrders() {
-    this.props.getOrders({
-      fromDate: this.state.fromDate,
-      toDate: this.state.toDate,
-      page: this.state.page,
-      pageLimit: this.state.pageLimit,
-    });
+    if (isVallidDateRange(this.state.fromDate, this.state.toDate)) {
+      this.props.getOrders({
+        fromDate: this.state.fromDate,
+        toDate: this.state.toDate,
+        page: this.state.page,
+        pageLimit: this.state.pageLimit,
+      });
+    }
   }
   render() {
     const { classes } = this.props;
