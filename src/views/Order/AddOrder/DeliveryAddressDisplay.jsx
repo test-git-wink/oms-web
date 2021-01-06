@@ -26,6 +26,7 @@ class DeliveryAddressDisplay extends Component {
           name="delivery"
           value={this.props.userAddressId}
           onChange={this.handleRadioSelect}
+          style={{ fontSize: "18px !important" }}
         >
           {this.props.userAddressData.map((val, ind) => {
             return (
@@ -34,6 +35,7 @@ class DeliveryAddressDisplay extends Component {
                 value={val.userAddressId.toString()}
                 control={<Radio />}
                 label={val.userAddress}
+                className="delivery-display"
               />
             );
           })}

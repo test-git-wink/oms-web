@@ -22,9 +22,12 @@ export default function OrderStatusDisplay() {
   ) {
     return (
       <MuiAlert elevation={6} variant="filled" severity="success">
-        <strong>
-          Order {postOrderResponse.orderId} was successfully Placed{" "}
-        </strong>
+        <h6 className="my-1">
+          {" "}
+          <strong>
+            Order {postOrderResponse.orderId} was successfully Placed{" "}
+          </strong>
+        </h6>
       </MuiAlert>
     );
   } else if (
@@ -32,7 +35,9 @@ export default function OrderStatusDisplay() {
     postOrderResponse.message !== responseMsgs.SUCCESS
   ) {
     <MuiAlert elevation={6} variant="filled" severity="error">
-      <strong>Order placement was unsuccessfull </strong>
+      <h6 className="my-1">
+        <strong>Order placement was unsuccessfull </strong>
+      </h6>
     </MuiAlert>;
   } else {
     return <div></div>;

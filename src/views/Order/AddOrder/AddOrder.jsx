@@ -68,7 +68,7 @@ class AddOrder extends Component {
                     <strong>Select Delivery Address</strong>{" "}
                   </h4>
                 </div>
-                <Grid item xs={12}>
+                <Grid item xs={12} className="d-flex justify-content-start">
                   <DeliveryAddressDisplay />
                 </Grid>
                 <Grid item xs={12} className="my-5">
