@@ -6,13 +6,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { connect } from "react-redux";
 
-const rows = [
-  { productId: "PROD_11223", quantity: 10, productName: "white rice" },
-  { productId: "PROD_11224", productName: "white flour", quantity: 10 },
-];
-
-export default class OrderItemDisplayTable extends Component {
+class OrderItemDisplayTable extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -30,8 +26,8 @@ export default class OrderItemDisplayTable extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.productId}>
+            {this.props.productDisplay.map((row, ind) => (
+              <TableRow key={ind}>
                 <TableCell align="left">{row.productName}</TableCell>
                 <TableCell align="center">{row.productId}</TableCell>
                 <TableCell align="center">{row.quantity}</TableCell>
@@ -43,3 +39,9 @@ export default class OrderItemDisplayTable extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  productDisplay: state.addOrderFormData.orderItems,
+});
+
+export default connect(mapStateToProps, null)(OrderItemDisplayTable);

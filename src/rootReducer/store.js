@@ -3,17 +3,20 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import { all, fork } from "redux-saga/effects";
 import { homePageReducer, homePageSagas } from "../views/Home/index";
-import { orderReducer } from "../views/Order/ViewOrder/data/orderReducer";
-import { orderSagas } from "../views/Order/ViewOrder/data/orderSagas";
+import { viewOrderReducer } from "../views/Order/ViewOrder/data/viewOrderReducer";
+import { viewOrderSagas } from "../views/Order/ViewOrder/data/viewOrderSagas";
+import { orderFormDataReducer } from "../views/Order/AddOrder/data/addOrderReducer";
+import { addOrderSagas } from "../views/Order/AddOrder/data/addtOrderSagas";
 
 const rootReducer = () =>
   combineReducers({
     mainPageData: homePageReducer,
-    viewOrderData: orderReducer,
+    viewOrderData: viewOrderReducer,
+    addOrderFormData: orderFormDataReducer,
   });
 
 function* rootSaga() {
-  let sagas = [...homePageSagas, ...orderSagas];
+  let sagas = [...homePageSagas, ...viewOrderSagas, ...addOrderSagas];
 
   yield all(sagas.map((s) => fork(s)));
 }

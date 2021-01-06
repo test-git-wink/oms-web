@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import "../../resources/css/bootstrap-grid.min.css";
@@ -10,8 +9,8 @@ import "../../resources/css/metisMenu.min.css";
 import "../../resources/css/startmin.css";
 import "../../resources/css/style.css";
 import Home from "../Home/home";
-import ViewOrders from "../Order/ViewOrder/ViewOrders";
 import AddOrder from "../Order/AddOrder/AddOrder";
+import ViewOrders from "../Order/ViewOrder/ViewOrders";
 
 class Main extends Component {
   render() {

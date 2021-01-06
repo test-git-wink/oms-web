@@ -11,6 +11,7 @@ import { withStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import OrderItemDisplayTable from "./OrderItemDisplayTable";
 import { isValidNumber } from "../../../validation/orderValidation";
+import { connect } from "react-redux";
 
 const styles = (theme) => ({
   root: {
@@ -25,48 +26,58 @@ const styles = (theme) => ({
   },
 });
 
-const productData = [
-  { productId: "PROD_11223", productName: "white rice", measureUnit: "Kg" },
-  { productId: "PROD_11224", productName: "white flour", measureUnit: "Kg" },
-];
-
 class AddOrderForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedProduct: "",
       selectedQuantity: 0,
-      orderingProducts: [],
-      productDisplay: [],
+      selectedProductUnit: "",
+      selectedProductName: "",
       quantityErrorState: false,
     };
+    this.props.getProducts();
   }
 
   handleProductSelect = (evt) => {
-    this.setState({
-      selectedProduct: evt.target.value,
+    this.setState((state) => {
+      const val = this.props.productDisplay
+        ? this.props.productDisplay.find(
+            (ele) => ele.productId === evt.target.value
+          )
+        : "";
+
+      return {
+        selectedProduct: evt.target.value,
+        selectedProductUnit: val.prodMeasureUnit,
+        selectedProductName: val.productName,
+      };
     });
   };
 
   handleProductQuantityAdd = (evt) => {
     if (isValidNumber(evt.target.value)) {
       this.setState({
-        selectedQuantity: evt.target.value,
+        selectedQuantity: parseFloat(evt.target.value),
         quantityErrorState: false,
       });
     } else {
       this.setState({
+        selectedQuantity: 0,
         quantityErrorState: true,
       });
     }
   };
 
   handleProductAdd = () => {
-    let item = {
-      productId: this.state.selectedProduct,
-      quantity: this.state.selectedQuantity,
-    };
-    this.setState({ orderingProducts: [...this.state.orderingProducts, item] });
+    if (this.state.selectedQuantity > 0 && this.state.selectedProduct !== "") {
+      const item = {
+        productId: this.state.selectedProduct,
+        quantity: this.state.selectedQuantity,
+        productName: this.state.selectedProductName,
+      };
+      this.props.addOrderItem(item);
+    }
   };
 
   render() {
@@ -83,7 +94,7 @@ class AddOrderForm extends Component {
                 value={this.state.selectedProduct}
                 onChange={this.handleProductSelect}
               >
-                {productData.map((val, ind) => {
+                {this.props.productDisplay.map((val, ind) => {
                   return (
                     <MenuItem key={val.productId} value={val.productId}>
                       {val.productName}
@@ -102,7 +113,9 @@ class AddOrderForm extends Component {
                 error={this.state.quantityErrorState}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment position="end">{"Kg"}</InputAdornment>
+                    <InputAdornment position="end">
+                      {this.state.selectedProductUnit}
+                    </InputAdornment>
                   ),
                 }}
                 label="Quantity"
@@ -134,4 +147,23 @@ class AddOrderForm extends Component {
   }
 }
 
-export default withStyles(styles)(AddOrderForm);
+const mapStateToProps = (state) => ({
+  loadingStatusProducts: state.addOrderFormData.loadingStatusProducts,
+  productDisplay: state.addOrderFormData.productData,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getProducts: () => {
+      dispatch({ type: "GET_PRODUCT_DATA" });
+    },
+    addOrderItem: (data) => {
+      dispatch({ type: "ADD_ORDER_ITEM_DATA", orderItem: data });
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(AddOrderForm));

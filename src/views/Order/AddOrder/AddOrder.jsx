@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import AddOrderForm from "./AddOrderForm";
 import DeliveryAddressDisplay from "./DeliveryAddressDisplay";
 import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
 
 const styles = (theme) => ({
   root: {
@@ -15,11 +16,36 @@ const styles = (theme) => ({
     padding: theme.spacing(3),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    // backgroundColor: "#a0d2eb",
   },
 });
 
 class AddOrder extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userId: 1,
+      orderStatus: "",
+    };
+  }
+
+  handlePlaceOrder = () => {
+    if (this.props.orderItems.length > 0 && this.props.userAddressId !== "") {
+      const orderdata = this.props.orderItems.map((val, ind) => ({
+        productId: val.productId,
+        quantity: val.quantity,
+      }));
+      const request = {
+        userId: this.state.userId,
+        orderItemList: orderdata,
+        orderStatus: "placed",
+        userAddresID: this.props.userAddressId,
+      };
+      console.log("order request", request);
+      this.props.postOrderData(request);
+    } else {
+    }
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -31,7 +57,7 @@ class AddOrder extends Component {
         </div>
         <Container maxWidth="xl">
           <Paper className={classes.paper}>
-            <Grid container spacing={3} className={classes.root} xs={12}>
+            <Grid container spacing={3} className={classes.root}>
               <Grid item xs={8}>
                 <AddOrderForm />
               </Grid>
@@ -58,6 +84,7 @@ class AddOrder extends Component {
                       fontSize: "2rem",
                       background: "#FFA500",
                     }}
+                    onClick={this.handlePlaceOrder}
                   >
                     Place Order
                   </Button>
@@ -71,4 +98,20 @@ class AddOrder extends Component {
   }
 }
 
-export default withStyles(styles)(AddOrder);
+const mapStateToProps = (state) => ({
+  userAddressId: state.addOrderFormData.userAddressId,
+  orderItems: state.addOrderFormData.orderItems,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    postOrderData: (data) => {
+      dispatch({ type: "POST_ORDER_DATA", payload: data });
+    },
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(AddOrder));

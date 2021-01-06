@@ -6,7 +6,7 @@ export function isValidOrderCancellation(val) {
 }
 
 export const isValidNumber = (str) => {
-  return /^\+?(0|[1-9]\d*)$/.test(str);
+  return /^\d*\.?\d*$/.test(str);
 };
 
 export const isVallidDateRange = (fromDate, toDate) => {

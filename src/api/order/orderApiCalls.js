@@ -44,7 +44,7 @@ export async function patchOrderData(data) {
 export async function postOrderData(data) {
   try {
     console.log("postOrderData api param =>", data);
-    const resp = await axios.patch(
+    const resp = await axios.post(
       `http://localhost:8082/v1/customer-orders/orders`,
       {
         userId: data.userId,
@@ -56,6 +56,36 @@ export async function postOrderData(data) {
     );
 
     console.log("postOrderData api response...", resp);
+
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getProductData() {
+  try {
+    console.log("getProductData api param ");
+    const resp = await axios.get(
+      `http://localhost:8082/v1/customer-orders/orders/products`
+    );
+
+    console.log("getProductData api response...", resp);
+
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getUserAddressData(data) {
+  try {
+    console.log("getUserAddressData api param ");
+    const resp = await axios.get(
+      `http://localhost:8082/v1/user/${data}/user-address`
+    );
+
+    console.log("getUserAddressData api response...", resp);
 
     return resp;
   } catch (error) {

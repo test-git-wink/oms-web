@@ -3,9 +3,9 @@ import {
   getOrderData,
   patchOrderData,
 } from "../../../../api/order/orderApiCalls";
-import { OrderEvents, GetViewOrdersResultAction } from "./orderActions";
+import { OrderEvents, GetViewOrdersResultAction } from "./viewOrderActions";
 
-export const orderSagas = [getViewOrdersDataSaga, patchOrdersDataSaga];
+export const viewOrderSagas = [getViewOrdersDataSaga, patchOrdersDataSaga];
 function* getViewOrdersDataSaga() {
   yield takeLatest(OrderEvents.GET_ORDER_DATA, callGetViewOrdersData);
 }

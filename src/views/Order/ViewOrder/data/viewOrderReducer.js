@@ -1,8 +1,8 @@
 import produce from "immer";
 import { LoadingStatus } from "../../../../rootReducer/actions";
-import { OrdersData, OrderEvents } from "./orderActions";
+import { OrdersData, OrderEvents } from "./viewOrderActions";
 
-export function orderReducer(state = OrdersData, action) {
+export function viewOrderReducer(state = OrdersData, action) {
   return produce(state, (draft) => {
     // eslint-disable-next-line default-case
     switch (action.type) {
