@@ -48,6 +48,10 @@ export const PostOrderDataResultAction = (data) => ({
   postOrderResponseData: data,
 });
 
+export const PostOrderDataFailAction = (data) => ({
+  type: AddOrderEvents.POST_ORDER_DATA_FAIL,
+});
+
 export const AddOrderItemsAction = (data) => ({
   type: AddOrderEvents.ADD_ORDER_ITEM_DATA,
   orderItem: data,

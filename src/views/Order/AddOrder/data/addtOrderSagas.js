@@ -11,6 +11,7 @@ import {
   GetProductDataFailAction,
   GetUserAddresFailAction,
   GetUserAddresResultAction,
+  PostOrderDataFailAction,
 } from "./addOrderActions";
 
 export const addOrderSagas = [
@@ -29,6 +30,7 @@ function* callPostOrdersData(action) {
     console.log("respone =>", results.data);
     yield put(PostOrderDataResultAction(results.data));
   } catch (error) {
+    yield put(PostOrderDataFailAction());
     console.log(error);
   }
 }

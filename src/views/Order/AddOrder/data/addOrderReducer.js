@@ -9,6 +9,8 @@ export const AddOrderFormData = {
   orderItems: [],
   userAddressId: "",
   orderStatus: "",
+  placeOrderResponse: {},
+  loadingStatusOrderRequest: LoadingStatus.LOADING_STARTED,
 };
 
 export function orderFormDataReducer(state = AddOrderFormData, action) {
@@ -67,6 +69,28 @@ export function orderFormDataReducer(state = AddOrderFormData, action) {
       return {
         ...state,
         userAddressId: action.userAddressId,
+      };
+    }
+
+    case AddOrderEvents.POST_ORDER_DATA: {
+      return {
+        ...state,
+        loadingStatusOrderRequest: LoadingStatus.LOADING_STARTED,
+      };
+    }
+
+    case AddOrderEvents.POST_ORDER_DATA_RESULT: {
+      return {
+        ...state,
+        loadingStatusOrderRequest: LoadingStatus.LOADING_SUCCESS,
+        placeOrderResponse: action.postOrderResponseData,
+      };
+    }
+
+    case AddOrderEvents.POST_ORDER_DATA_FAIL: {
+      return {
+        ...state,
+        loadingStatusOrderRequest: LoadingStatus.LOADING_ERROR,
       };
     }
 

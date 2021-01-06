@@ -7,6 +7,7 @@ import AddOrderForm from "./AddOrderForm";
 import DeliveryAddressDisplay from "./DeliveryAddressDisplay";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
+import OrderStatusDisplay from "./OrderStatusDisplay";
 
 const styles = (theme) => ({
   root: {
@@ -89,6 +90,9 @@ class AddOrder extends Component {
                     Place Order
                   </Button>
                 </Grid>
+                <Grid item xs={12}>
+                  <OrderStatusDisplay />
+                </Grid>
               </Grid>
             </Grid>
           </Paper>
@@ -101,6 +105,8 @@ class AddOrder extends Component {
 const mapStateToProps = (state) => ({
   userAddressId: state.addOrderFormData.userAddressId,
   orderItems: state.addOrderFormData.orderItems,
+  placeOrderResponse: state.addOrderFormData.placeOrderResponse,
+  loadingStatusOrderRequest: state.addOrderFormData.loadingStatusOrderRequest,
 });
 
 const mapDispatchToProps = (dispatch) => {
