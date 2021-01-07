@@ -82,7 +82,7 @@ export async function getUserAddressData(data) {
   try {
     console.log("getUserAddressData api param ");
     const resp = await axios.get(
-      `http://localhost:8082/v1/user/${data}/user-address`
+      `http://localhost:8082/v1/user/${data}/user-addresses`
     );
 
     console.log("getUserAddressData api response...", resp);

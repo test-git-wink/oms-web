@@ -22,6 +22,6 @@ export const PatchCancelOrdersAction = (payloadData) => ({
 });
 
 export const OrdersData = {
-  loadingStatus: LoadingStatus.LOADING_STARTED,
+  loadingStatus: LoadingStatus.NO_DATA,
   orderData: [],
 };

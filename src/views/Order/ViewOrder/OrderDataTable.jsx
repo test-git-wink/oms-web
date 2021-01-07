@@ -119,7 +119,7 @@ class OrderDataTable extends React.Component {
 
   handleCancelOrder(params) {
     console.log("handleCancelOrder", params);
-
+    this.setState({ loading: true });
     this.props.cancelOrder({
       cancelData: {
         orderId: params.getValue("id"),
@@ -132,6 +132,7 @@ class OrderDataTable extends React.Component {
         pageLimit: this.props.pageLimit,
       },
     });
+    this.setState({ loading: false });
   }
 
   render() {
@@ -148,7 +149,7 @@ class OrderDataTable extends React.Component {
             rowCount={this.props.dataCount ? this.props.dataCount : 0}
             paginationMode="server"
             onPageChange={this.handlePageChange}
-            loading={false}
+            loading={this.state.loading}
             className={classes.root}
             page={this.state.page}
           />

@@ -34,11 +34,21 @@ export default function OrderStatusDisplay() {
     postOrderStatus === LoadingStatus.LOADING_SUCCESS &&
     postOrderResponse.message !== responseMsgs.SUCCESS
   ) {
-    <MuiAlert elevation={6} variant="filled" severity="error">
-      <h6 className="my-1">
-        <strong>Order placement was unsuccessfull </strong>
-      </h6>
-    </MuiAlert>;
+    return (
+      <MuiAlert elevation={6} variant="filled" severity="error">
+        <h6 className="my-1">
+          <strong>Order placement was unsuccessfull </strong>
+        </h6>
+      </MuiAlert>
+    );
+  } else if (postOrderStatus === LoadingStatus.LOADING_ERROR) {
+    return (
+      <MuiAlert elevation={6} variant="filled" severity="error">
+        <h6 className="my-1">
+          <strong>Order placement was unsuccessfull </strong>
+        </h6>
+      </MuiAlert>
+    );
   } else {
     return <div></div>;
   }

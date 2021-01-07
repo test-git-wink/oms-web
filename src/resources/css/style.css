@@ -17,9 +17,9 @@
 }
 
 .MuiTypography-body1 {
-  font-size: medium;
+  font-size: medium !important;
 }
 
 .MuiTableCell-root {
-  font-size: 1.5rem;
+  font-size: 1.2rem !important;
 }

@@ -9,6 +9,7 @@ export const AddOrderEvents = {
   POST_ORDER_DATA_RESULT: "POST_ORDER_DATA_RESULT",
   POST_ORDER_DATA_FAIL: "POST_ORDER_DATA_FAIL",
   ADD_ORDER_ITEM_DATA: "ADD_ORDER_ITEM_DATA",
+  REMOVE_ORDER_ITEM_DATA: "REMOVE_ORDER_ITEM_DATA",
   ADD_USER_ADDRESS_DATA: "ADD_USER_ADDRESS_DATA",
 };
 
@@ -55,6 +56,11 @@ export const PostOrderDataFailAction = (data) => ({
 export const AddOrderItemsAction = (data) => ({
   type: AddOrderEvents.ADD_ORDER_ITEM_DATA,
   orderItem: data,
+});
+
+export const RemoveOrderItemsAction = (data) => ({
+  type: AddOrderEvents.REMOVE_ORDER_ITEM_DATA,
+  itemId: data,
 });
 
 export const AddUserAddressAction = (data) => ({

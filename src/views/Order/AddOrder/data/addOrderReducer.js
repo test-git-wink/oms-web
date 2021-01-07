@@ -65,6 +65,14 @@ export function orderFormDataReducer(state = AddOrderFormData, action) {
         orderItems: [...state.orderItems, action.orderItem],
       };
     }
+    case AddOrderEvents.REMOVE_ORDER_ITEM_DATA: {
+      const orderList = [...state.orderItems];
+
+      return {
+        ...state,
+        orderItems: orderList.filter((val, ind) => ind !== action.itemId),
+      };
+    }
     case AddOrderEvents.ADD_USER_ADDRESS_DATA: {
       return {
         ...state,

@@ -4,6 +4,7 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import NoDataDisplay from "../../../components/Common/NoDataDisplay";
 
 class DeliveryAddressDisplay extends Component {
   constructor(props) {
@@ -19,29 +20,33 @@ class DeliveryAddressDisplay extends Component {
   };
 
   render() {
-    return (
-      <FormControl component="fieldset">
-        <RadioGroup
-          aria-label="delivery"
-          name="delivery"
-          value={this.props.userAddressId}
-          onChange={this.handleRadioSelect}
-          style={{ fontSize: "18px !important" }}
-        >
-          {this.props.userAddressData.map((val, ind) => {
-            return (
-              <FormControlLabel
-                key={ind}
-                value={val.userAddressId.toString()}
-                control={<Radio />}
-                label={val.userAddress}
-                className="delivery-display"
-              />
-            );
-          })}
-        </RadioGroup>
-      </FormControl>
-    );
+    if (this.props.userAddressData.length > 0) {
+      return (
+        <FormControl component="fieldset">
+          <RadioGroup
+            aria-label="delivery"
+            name="delivery"
+            value={this.props.userAddressId}
+            onChange={this.handleRadioSelect}
+            style={{ fontSize: "18px !important" }}
+          >
+            {this.props.userAddressData.map((val, ind) => {
+              return (
+                <FormControlLabel
+                  key={ind}
+                  value={val.userAddressId.toString()}
+                  control={<Radio />}
+                  label={val.userAddress}
+                  className="delivery-display"
+                />
+              );
+            })}
+          </RadioGroup>
+        </FormControl>
+      );
+    } else {
+      return <NoDataDisplay />;
+    }
   }
 }
 
