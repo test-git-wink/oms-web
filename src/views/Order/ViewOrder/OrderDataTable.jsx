@@ -1,12 +1,11 @@
+import Button from "@material-ui/core/Button";
+import { withStyles } from "@material-ui/core/styles";
+import { DataGrid } from "@material-ui/data-grid";
 import * as React from "react";
 import { connect } from "react-redux";
-import { isValidOrderCancellation } from "../../../validation/orderValidation";
-import Button from "@material-ui/core/Button";
-import { DataGrid } from "@material-ui/data-grid";
 import { OrderRequestStatus } from "../../../common/orderStatus";
-import { withStyles } from "@material-ui/core/styles";
 import { LoadingStatus } from "../../../rootReducer/actions";
-import NoDataDisplay from "../../../components/Common/NoDataDisplay";
+import { isValidOrderCancellation } from "../../../validation/orderValidation";
 
 const styles = (theme) => ({
   root: {
@@ -102,7 +101,10 @@ class OrderDataTable extends React.Component {
 
   handlePageChange(params) {
     console.log("handlePageChange ", params);
-    if (params.paginationMode === "server") {
+    if (
+      params.paginationMode === "server" &&
+      this.props.loadingStatus === LoadingStatus.LOADING_SUCCESS
+    ) {
       this.setState((state) => {
         if (state.page !== params.page) {
           this.props.getOrders({
@@ -138,26 +140,22 @@ class OrderDataTable extends React.Component {
   render() {
     const { classes } = this.props;
 
-    if (this.props.loadingStatus === LoadingStatus.LOADING_SUCCESS) {
-      return (
-        <div style={{ height: 500, width: "100%" }}>
-          <DataGrid
-            rows={this.props.data ? this.props.data : []}
-            columns={this.columns}
-            pageSize={this.props.pageLimit}
-            checkboxSelection={false}
-            rowCount={this.props.dataCount ? this.props.dataCount : 0}
-            paginationMode="server"
-            onPageChange={this.handlePageChange}
-            loading={this.state.loading}
-            className={classes.root}
-            page={this.state.page}
-          />
-        </div>
-      );
-    } else {
-      return <NoDataDisplay />;
-    }
+    return (
+      <div style={{ height: 500, width: "100%" }}>
+        <DataGrid
+          rows={this.props.data ? this.props.data : []}
+          columns={this.columns}
+          pageSize={this.props.pageLimit}
+          checkboxSelection={false}
+          rowCount={this.props.dataCount ? this.props.dataCount : 0}
+          paginationMode="server"
+          onPageChange={this.handlePageChange}
+          loading={this.props.loadingStatus === LoadingStatus.LOADING_STARTED}
+          className={classes.root}
+          page={this.state.page}
+        />
+      </div>
+    );
   }
 }
 

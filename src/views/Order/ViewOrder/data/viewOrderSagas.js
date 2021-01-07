@@ -3,7 +3,12 @@ import {
   getOrderData,
   patchOrderData,
 } from "../../../../api/order/orderApiCalls";
-import { OrderEvents, GetViewOrdersResultAction } from "./viewOrderActions";
+import {
+  OrderEvents,
+  GetViewOrdersResultAction,
+  GetViewOrdersFailAction,
+  PatchCancelOrdersFailAction,
+} from "./viewOrderActions";
 
 export const viewOrderSagas = [getViewOrdersDataSaga, patchOrdersDataSaga];
 function* getViewOrdersDataSaga() {
@@ -16,6 +21,7 @@ function* callGetViewOrdersData(action) {
     console.log("respone =>", results.data);
     yield put(GetViewOrdersResultAction(results.data));
   } catch (error) {
+    yield put(GetViewOrdersFailAction());
     console.log(error);
   }
 }
@@ -31,6 +37,8 @@ function* callPatchOrdersData(action) {
     console.log("respone patchOrderData =>", orderResults.data);
     yield put(GetViewOrdersResultAction(orderResults.data));
   } catch (error) {
+    yield put(PatchCancelOrdersFailAction());
+    yield put(GetViewOrdersFailAction());
     console.log(error);
   }
 }

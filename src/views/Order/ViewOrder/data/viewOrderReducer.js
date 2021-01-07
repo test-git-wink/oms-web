@@ -17,8 +17,18 @@ export function viewOrderReducer(state = OrdersData, action) {
 
         break;
       }
+
+      case OrderEvents.GET_ORDER_DATA_FAIL: {
+        draft.loadingStatus = LoadingStatus.LOADING_ERROR;
+
+        break;
+      }
       case OrderEvents.PATCH_ORDER_DATA: {
-        draft.loadingStatus = LoadingStatus.LOADING_STARTED;
+        draft.cancelOrderLoadingStatus = LoadingStatus.LOADING_STARTED;
+        break;
+      }
+      case OrderEvents.PATCH_ORDER_DATA_FAIL: {
+        draft.cancelOrderLoadingStatus = LoadingStatus.LOADING_ERROR;
         break;
       }
     }

@@ -36,22 +36,22 @@ class AddOrderForm extends Component {
       selectedProductName: "",
       quantityErrorState: false,
     };
+  }
+  componentDidMount() {
     this.props.getProducts();
   }
 
   handleProductSelect = (evt) => {
-    this.setState((state) => {
-      const val = this.props.productDisplay
-        ? this.props.productDisplay.find(
-            (ele) => ele.productId === evt.target.value
-          )
-        : "";
+    const val = this.props.productDisplay
+      ? this.props.productDisplay.find(
+          (ele) => ele.productId === evt.target.value
+        )
+      : "";
 
-      return {
-        selectedProduct: evt.target.value,
-        selectedProductUnit: val.prodMeasureUnit,
-        selectedProductName: val.productName,
-      };
+    this.setState({
+      selectedProduct: evt.target.value,
+      selectedProductUnit: val.prodMeasureUnit,
+      selectedProductName: val.productName,
     });
   };
 
@@ -94,7 +94,7 @@ class AddOrderForm extends Component {
                 value={this.state.selectedProduct}
                 onChange={this.handleProductSelect}
               >
-                {this.props.productDisplay.map((val, ind) => {
+                {this.props.productDisplay.map((val) => {
                   return (
                     <MenuItem key={val.productId} value={val.productId}>
                       {val.productName}

@@ -1,10 +1,12 @@
+import CircularProgress from "@material-ui/core/CircularProgress";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import NoDataDisplay from "../../../components/Common/NoDataDisplay";
+import AlertMessage from "../../../components/Common/NetworkError";
+import { LoadingStatus } from "../../../rootReducer/actions";
 
 class DeliveryAddressDisplay extends Component {
   constructor(props) {
@@ -20,7 +22,7 @@ class DeliveryAddressDisplay extends Component {
   };
 
   render() {
-    if (this.props.userAddressData.length > 0) {
+    if (this.props.loadingStatusUserAddress === LoadingStatus.LOADING_SUCCESS) {
       return (
         <FormControl component="fieldset">
           <RadioGroup
@@ -44,9 +46,14 @@ class DeliveryAddressDisplay extends Component {
           </RadioGroup>
         </FormControl>
       );
-    } else {
-      return <NoDataDisplay />;
-    }
+    } else if (
+      this.props.loadingStatusUserAddress === LoadingStatus.LOADING_STARTED
+    ) {
+      return <CircularProgress />;
+    } else
+      return (
+        <AlertMessage severity="error" message="Network Error" show={true} />
+      );
   }
 }
 

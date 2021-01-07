@@ -13,6 +13,8 @@ import OrderDataTable from "./OrderDataTable";
 import { connect } from "react-redux";
 import format from "date-fns/format";
 import { isVallidDateRange } from "../../../validation/orderValidation";
+import AlertMessage from "../../../components/Common/NetworkError";
+import { LoadingStatus } from "../../../rootReducer/actions";
 
 const styles = (theme) => ({
   root: {
@@ -123,15 +125,22 @@ class ViewOrders extends Component {
               </Grid>
             </Grid>
           </Paper>
+          {this.props.loadingStatus === LoadingStatus.LOADING_ERROR && (
+            <AlertMessage
+              severity="error"
+              message="Network Error"
+              show={true}
+            />
+          )}
         </Container>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};
-};
+const mapStateToProps = (state) => ({
+  loadingStatus: state.viewOrderData.loadingStatus,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
