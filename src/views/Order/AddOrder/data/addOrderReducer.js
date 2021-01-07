@@ -60,10 +60,16 @@ export function orderFormDataReducer(state = AddOrderFormData, action) {
       };
     }
     case AddOrderEvents.ADD_ORDER_ITEM_DATA: {
-      return {
-        ...state,
-        orderItems: [...state.orderItems, action.orderItem],
-      };
+      const productId = action.orderItem.productId;
+      const productExist = state.orderItems.some(
+        (val) => val.productId === productId
+      );
+      if (!productExist) {
+        return {
+          ...state,
+          orderItems: [...state.orderItems, action.orderItem],
+        };
+      } else return state;
     }
     case AddOrderEvents.REMOVE_ORDER_ITEM_DATA: {
       const orderList = [...state.orderItems];
