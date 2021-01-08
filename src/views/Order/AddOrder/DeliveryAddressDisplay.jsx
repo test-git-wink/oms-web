@@ -49,11 +49,15 @@ class DeliveryAddressDisplay extends Component {
     } else if (
       this.props.loadingStatusUserAddress === LoadingStatus.LOADING_STARTED
     ) {
-      return <CircularProgress />;
-    } else
       return (
-        <AlertMessage severity="error" message="Network Error" show={true} />
+        <div className="row">
+          <div className="col">Loading</div>
+          <div className="col">
+            <CircularProgress />
+          </div>
+        </div>
       );
+    } else return <div></div>;
   }
 }
 

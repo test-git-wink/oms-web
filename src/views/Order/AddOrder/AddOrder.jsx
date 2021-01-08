@@ -8,6 +8,8 @@ import DeliveryAddressDisplay from "./DeliveryAddressDisplay";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import OrderStatusDisplay from "./OrderStatusDisplay";
+import AlertMessage from "../../../components/Common/NetworkError";
+import { LoadingStatus } from "../../../rootReducer/actions";
 
 const styles = (theme) => ({
   root: {
@@ -65,7 +67,7 @@ class AddOrder extends Component {
               <Grid item xs={4}>
                 <div className="row">
                   <h4 className="">
-                    <strong>Select Delivery Address</strong>{" "}
+                    <strong>Select Delivery Address *</strong>{" "}
                   </h4>
                 </div>
                 <Grid item xs={12} className="d-flex justify-content-start">
@@ -96,6 +98,17 @@ class AddOrder extends Component {
               </Grid>
             </Grid>
           </Paper>
+          {(this.props.loadingStatusUserAddress ===
+            LoadingStatus.LOADING_ERROR ||
+            this.props.loadingStatusProducts === LoadingStatus.LOADING_ERROR ||
+            this.props.loadingStatusOrderRequest ===
+              LoadingStatus.LOADING_ERROR) && (
+            <AlertMessage
+              severity="error"
+              message="Network Error"
+              show={true}
+            />
+          )}
         </Container>
       </div>
     );
@@ -107,6 +120,8 @@ const mapStateToProps = (state) => ({
   orderItems: state.addOrderFormData.orderItems,
   placeOrderResponse: state.addOrderFormData.placeOrderResponse,
   loadingStatusOrderRequest: state.addOrderFormData.loadingStatusOrderRequest,
+  loadingStatusUserAddress: state.addOrderFormData.loadingStatusProducts,
+  loadingStatusProducts: state.addOrderFormData.loadingStatusProducts,
 });
 
 const mapDispatchToProps = (dispatch) => {

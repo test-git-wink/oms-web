@@ -101,10 +101,7 @@ class OrderDataTable extends React.Component {
 
   handlePageChange(params) {
     console.log("handlePageChange ", params);
-    if (
-      params.paginationMode === "server" &&
-      this.props.loadingStatus === LoadingStatus.LOADING_SUCCESS
-    ) {
+    if (params.paginationMode === "server") {
       this.setState((state) => {
         if (state.page !== params.page) {
           this.props.getOrders({
@@ -143,6 +140,7 @@ class OrderDataTable extends React.Component {
     return (
       <div style={{ height: 500, width: "100%" }}>
         <DataGrid
+          autoPageSize
           rows={this.props.data ? this.props.data : []}
           columns={this.columns}
           pageSize={this.props.pageLimit}

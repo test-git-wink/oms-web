@@ -79,7 +79,7 @@ class ViewOrders extends Component {
                     format="yyyy-MM-dd"
                     margin="normal"
                     id="date-picker-inline"
-                    label="From Date"
+                    label="From Date *"
                     value={this.state.fromDate}
                     onChange={this.handleFromDateChange}
                     KeyboardButtonProps={{
@@ -96,7 +96,7 @@ class ViewOrders extends Component {
                     format="yyyy-MM-dd"
                     margin="normal"
                     id="date-picker-inline"
-                    label="To Date"
+                    label="To Date *"
                     value={this.state.toDate}
                     onChange={this.handleToDateChange}
                     KeyboardButtonProps={{

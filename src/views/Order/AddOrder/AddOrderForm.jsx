@@ -87,7 +87,7 @@ class AddOrderForm extends Component {
         <Grid container spacing={3} justify="center" alignItems="center">
           <Grid item xs={4}>
             <FormControl className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">Products</InputLabel>
+              <InputLabel id="demo-simple-select-label">Products *</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -118,7 +118,7 @@ class AddOrderForm extends Component {
                     </InputAdornment>
                   ),
                 }}
-                label="Quantity"
+                label="Quantity *"
               />
               <FormHelperText id="quantity-helper-text">
                 {!this.state.quantityErrorState && (

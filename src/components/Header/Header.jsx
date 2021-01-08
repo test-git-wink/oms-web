@@ -6,7 +6,7 @@ export default class Header extends Component {
     return (
       <nav className="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div className="navbar-header">
-          <a className="navbar-brand" href="index.html">
+          <a className="navbar-brand" href="/">
             OMS Dashboard
           </a>
         </div>

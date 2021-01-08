@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import MuiAlert from "@material-ui/lab/Alert";
 
 function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} variant="filled" {...props} al />;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -13,8 +13,17 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     "& > * + *": {
       marginTop: theme.spacing(2),
+      fontSize: "20px",
+      " .MuiSnackbar-anchorOriginTopCenter": {
+        top: "50px !important",
+      },
     },
-    fontSize: "20px",
+  },
+  anchorOriginTopCenter: {
+    top: "50px ",
+  },
+  message: {
+    padding: "11px 0",
   },
 }));
 
@@ -39,12 +48,17 @@ export default function AlertMessage({ message, show, severity }) {
     <div className={classes.root}>
       <Snackbar
         open={open}
-        autoHideDuration={4000}
-        onClose={show}
+        autoHideDuration={6000}
+        onClose={handleClose}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        classes={{ anchorOriginTopCenter: classes.anchorOriginTopCenter }}
       >
-        <Alert onClose={handleClose} severity={severity}>
-          {message}
+        <Alert
+          onClose={handleClose}
+          severity={severity}
+          classes={{ message: classes.message }}
+        >
+          <strong>{message}</strong>
         </Alert>
       </Snackbar>
     </div>
