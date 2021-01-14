@@ -75,6 +75,7 @@ class AddOrderForm extends Component {
         productId: this.state.selectedProduct,
         quantity: this.state.selectedQuantity,
         productName: this.state.selectedProductName,
+        productUnit: this.state.selectedProductUnit,
       };
       this.props.addOrderItem(item);
     }

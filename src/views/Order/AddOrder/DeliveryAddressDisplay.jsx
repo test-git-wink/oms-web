@@ -5,7 +5,6 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import AlertMessage from "../../../components/Common/NetworkError";
 import { LoadingStatus } from "../../../rootReducer/actions";
 
 class DeliveryAddressDisplay extends Component {

@@ -105,7 +105,7 @@ class AddOrder extends Component {
               LoadingStatus.LOADING_ERROR) && (
             <AlertMessage
               severity="error"
-              message="Network Error"
+              message="Service not avaialable"
               show={true}
             />
           )}

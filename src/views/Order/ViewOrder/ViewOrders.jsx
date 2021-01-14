@@ -1,5 +1,5 @@
-import React, { Component } from "react";
 import DateFnsUtils from "@date-io/date-fns";
+import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -8,13 +8,13 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import Button from "@material-ui/core/Button";
-import OrderDataTable from "./OrderDataTable";
-import { connect } from "react-redux";
 import format from "date-fns/format";
-import { isVallidDateRange } from "../../../validation/orderValidation";
+import React, { Component } from "react";
+import { connect } from "react-redux";
 import AlertMessage from "../../../components/Common/NetworkError";
 import { LoadingStatus } from "../../../rootReducer/actions";
+import { isVallidDateRange } from "../../../validation/orderValidation";
+import OrderDataTable from "./OrderDataTable";
 
 const styles = (theme) => ({
   root: {
@@ -78,7 +78,7 @@ class ViewOrders extends Component {
                     variant="inline"
                     format="yyyy-MM-dd"
                     margin="normal"
-                    id="date-picker-inline"
+                    id="date-picker-inline1"
                     label="From Date *"
                     value={this.state.fromDate}
                     onChange={this.handleFromDateChange}
@@ -95,7 +95,7 @@ class ViewOrders extends Component {
                     variant="inline"
                     format="yyyy-MM-dd"
                     margin="normal"
-                    id="date-picker-inline"
+                    id="date-picker-inline2"
                     label="To Date *"
                     value={this.state.toDate}
                     onChange={this.handleToDateChange}
@@ -128,7 +128,7 @@ class ViewOrders extends Component {
           {this.props.loadingStatus === LoadingStatus.LOADING_ERROR && (
             <AlertMessage
               severity="error"
-              message="Network Error"
+              message="Service not avaialable"
               show={true}
             />
           )}

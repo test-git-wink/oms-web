@@ -35,7 +35,9 @@ class OrderItemDisplayTable extends Component {
               <TableRow key={ind}>
                 <TableCell align="left">{row.productName}</TableCell>
                 <TableCell align="center">{row.productId}</TableCell>
-                <TableCell align="center">{row.quantity}</TableCell>
+                <TableCell align="center">
+                  {row.quantity + " " + row.productUnit}
+                </TableCell>
                 <TableCell align="center">
                   {" "}
                   <strong>
